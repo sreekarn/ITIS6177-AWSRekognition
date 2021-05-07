@@ -5,8 +5,9 @@ var fs = require('fs')
 var path = require('path')
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
+const env = require("dotenv").config();
 
-require("dotenv").config();
+
 const port = process.env.port || 8081;
 
 var app = express()
@@ -51,9 +52,9 @@ var upload = multer({
 })
 
 AWS.config.update({
-    accessKeyId: 'AKIAXO5VUQNLYHT7PP6B',
-    secretAccessKey: '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',
-    region: 'us-east-1'
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION
 })
 
 function getFile(path) {
