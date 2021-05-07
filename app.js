@@ -1,16 +1,17 @@
+var cors = require('cors')
 var express = require('express')
 var multer = require('multer')
-var AWS = require('aws-sdk')
+var AWS = require('aws-sdk')    
 var fs = require('fs')
 var path = require('path')
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const env = require("dotenv").config();
 
-require("dotenv").config();
 const port = process.env.port || 8081;
 
 var app = express()
+app.use(cors())
 
 const options = {
     swaggerDefinition: {
@@ -19,7 +20,7 @@ const options = {
             version: '1.0.0',
             description: 'ITIS 6177 - AWS TEXT REKOGNITION -Detect Text'
         },
-        host:'localhost:3000',
+        host:'localhost:8081',
         basePath:'/'
     },
     apis:['app.js']
@@ -56,6 +57,7 @@ AWS.config.update({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: process.env.AWS_REGION
 })
+
 
 function getFile(path) {
     try {
